@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from datetime import datetime
+from crawl import crawl_stocks, crawl_pm25
 
 # print(__name__)
 
@@ -21,6 +22,24 @@ books = {
         "image_url": "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/036/04/0010360466.jpg&v=62d695bak&w=348&h=348",
     },
 }
+
+
+@app.route("/pm25")
+def get_pm25():
+    today = datetime.now()
+    columns, values = crawl_pm25()
+    datas = {
+        "columns": columns,
+        "values": values,
+        "today": today.strftime("%y/%m/%d %M:%H:%S"),
+    }
+    return render_template("pm25.html", datas=datas)
+
+
+@app.route("/stocks")
+def get_stocks():
+    datas = crawl_stocks()
+    return render_template("stocks.html", stocks=datas)
 
 
 @app.route("/bmi/name=<name>&height=<h>&weight=<w>")
