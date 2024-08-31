@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from datetime import datetime
 
 # print(__name__)
@@ -33,7 +33,8 @@ def my_sum(x, y):
 def index():
     today = datetime.now()
     # print(today)
-    return f"<h1>hello flask<br>{today}</h1>"
+    # return f"<h1>hello flask<br>{today}</h1>"
+    return render_template("index.html", date=today)
 
 
 @app.route("/books")
