@@ -1,0 +1,58 @@
+<!-- 直接按!可以一鍵生成html語法 -->
+<!-- ctrl+/ 可以直接註解一行文字 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>書店首頁</title>
+
+    <style>
+        body {
+            /* background-color: rgb(214, 162, 66); */
+            text-align: center;
+        }
+
+        .bookname {
+            background-color: blueviolet;
+            width: 200px;
+            margin: 0 auto;
+            border-radius: 12px;
+            padding: 12px 0px;
+        }
+
+        .price {
+            background-color: antiquewhite;
+            padding: 12px;
+            margin: 6px 0px;
+            color: blue;
+        }
+
+        .bookimage {
+            width: 250px;
+            border-radius: 12px;
+            border: 1px black solid;
+            padding: 6px 0px;
+            margin: 6px auto;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>目前書籍</h1>
+    <!-- {{books}} -->
+    {% for key in books %}
+
+    <div class="bookname">{{books[key]["name"]}}</div>
+    <div class="price">NT:{{books[key]["price"]}}</div>
+    <!-- 輸出圖片連結 -->
+    <img class="bookimage" src="{{books[key].image_url}}" alt="">
+    <button>購買</button>
+    <hr>
+    {% endfor %}
+</body>
+
+</html>

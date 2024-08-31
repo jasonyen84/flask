@@ -4,7 +4,23 @@ from datetime import datetime
 # print(__name__)
 
 app = Flask(__name__)
-books = {1: "python book", 2: "java book", 3: "flask book"}
+books = {
+    1: {
+        "name": "Python book",
+        "price": 299,
+        "image_url": "https://im2.book.com.tw/image/getImage?i=https://www.books.com.tw/img/CN1/136/11/CN11361197.jpg&v=58096f9ck&w=348&h=348",
+    },
+    2: {
+        "name": "Java book",
+        "price": 399,
+        "image_url": "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/087/31/0010873110.jpg&v=5f7c475bk&w=348&h=348",
+    },
+    3: {
+        "name": "C# book",
+        "price": 499,
+        "image_url": "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/036/04/0010360466.jpg&v=62d695bak&w=348&h=348",
+    },
+}
 
 
 @app.route("/bmi/name=<name>&height=<h>&weight=<w>")
@@ -34,13 +50,17 @@ def index():
     today = datetime.now()
     # print(today)
     # return f"<h1>hello flask<br>{today}</h1>"
-    return render_template("index.html", date=today)
+    name = "Leo"
+    # 等號左邊是前端的變數，右邊是後端的
+    return render_template("index.html", date=today, name=name)
 
 
 @app.route("/books")
 # 取用dic的元素，在網頁中以JSON顯示
 def show_books():
-    return books
+    for key in books:
+        print(books[key])
+    return render_template("books.html", books=books)
 
 
 # @app.route("/book")
