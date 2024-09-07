@@ -24,21 +24,25 @@ books = {
 }
 
 
-@app.route("/pm25")
+@app.route("/pm25", methods=["GET", "POST"])
 def get_pm25():
+    # GET
     print(request.args)
+    # POST
+    print(request.form)
     today = datetime.now()
 
     sort = False
     ascending = True
 
-    # 判斷是否按下按鈕
-    if "sort" in request.args:
+    if request.method == "POST":
+        # 判斷是否按下按鈕
+        if "sort" in request.form:
 
-        sort = True
-        # 取得select的option
-        ascending = True if request.args.get("sort") == "true" else False
-        # print(ascending)
+            sort = True
+            # 取得select的option
+            ascending = True if request.form.get("sort") == "true" else False
+            # print(ascending)
 
     columns, values = crawl_pm25(sort, ascending)
     datas = {

@@ -38,11 +38,12 @@
 <body>
     <h1>全省PM2.5資訊</h1>
     <h3>目前時間:{{datas["today"]}}</h3>
-    <a href="/">回首頁</a><br>
+    <a href="/">回首頁</a>
+    <a href="">重新讀取</a>
 
     <!-- 前後端溝通 -->
     <!-- action 不特別寫就是在本頁 -->
-    <form action="">
+    <form action="" method="POST">
 
         <!-- name 給後端判讀 -->
         <select name="sort" id="sort">
