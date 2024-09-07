@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from datetime import datetime
 from crawl import crawl_stocks, crawl_pm25
 
@@ -26,12 +26,25 @@ books = {
 
 @app.route("/pm25")
 def get_pm25():
+    print(request.args)
     today = datetime.now()
-    columns, values = crawl_pm25()
+
+    sort = False
+    ascending = True
+
+    # 判斷是否按下按鈕
+    if "sort" in request.args:
+
+        sort = True
+        # 取得select的option
+        ascending = True if request.args.get("sort") == "true" else False
+        # print(ascending)
+
+    columns, values = crawl_pm25(sort, ascending)
     datas = {
         "columns": columns,
         "values": values,
-        "today": today.strftime("%y/%m/%d %H:%M:%S"),
+        "today": today.strftime("%Y/%m/%d %H:%M:%S"),
     }
     return render_template("pm25.html", datas=datas)
 

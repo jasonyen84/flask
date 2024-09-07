@@ -38,6 +38,20 @@
 <body>
     <h1>全省PM2.5資訊</h1>
     <h3>目前時間:{{datas["today"]}}</h3>
+    <a href="/">回首頁</a><br>
+
+    <!-- 前後端溝通 -->
+    <!-- action 不特別寫就是在本頁 -->
+    <form action="">
+
+        <!-- name 給後端判讀 -->
+        <select name="sort" id="sort">
+            <option value="true">升</option>
+            <option value="false">降</option>
+        </select>
+        <button type="submit">排序</button>
+
+    </form>
     <table border="1">
         <thead>
             <tr>
@@ -62,7 +76,7 @@
     </table>
 
 
-    <a href="/">回首頁</a>
+
 </body>
 
 </html>
