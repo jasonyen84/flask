@@ -87,13 +87,15 @@
         const checkReload = document.querySelector("#check-reload");
         const reloadSecond = document.querySelector("#reload-sec");
         const deleySecond = 30;
-        reloadSecond.value = deleySecond;
 
+        // ctrl+h 取代文字
+        // localStorage 本地儲存:除非清除，否則一直保存
+        // sessionStorage 會話儲存:只存在現有會話中，會話關閉，則清除
         console.log(checkReload, reloadSecond);
         // console.log(checkReload.checked, reloadSecond.value);
 
         window.onload = function () {
-            checkReload.checked = localStorage.getItem("checkReload") ? True : Fasle;
+            checkReload.checked = localStorage.getItem("checkReload") == "true";
             reloadSecond.value = localStorage.getItem("reloadSecond") ? localStorage.getItem("reloadSecond") : deleySecond;
 
             SetUpdateInterval();
@@ -110,14 +112,19 @@
 
         });
 
+        let IntervalId = null;
+
         function SetUpdateInterval() {
             if (checkReload.checked) {
                 console.log("start reload!");
                 let sec = Number(reloadSecond.value) * 1000;
-
-                setInterval(() => {
+                //取得對應ID 
+                IntervalId = setInterval(() => {
                     window.location.reload();
                 }, sec);
+            } else {
+                // 清除ID
+                clearInterval(IntervalId);
             }
 
         }
