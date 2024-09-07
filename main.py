@@ -31,7 +31,7 @@ def get_pm25():
     datas = {
         "columns": columns,
         "values": values,
-        "today": today.strftime("%y/%m/%d %M:%H:%S"),
+        "today": today.strftime("%y/%m/%d %H:%M:%S"),
     }
     return render_template("pm25.html", datas=datas)
 
