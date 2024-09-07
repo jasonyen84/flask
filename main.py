@@ -35,15 +35,16 @@ def get_pm25():
     sort = False
     ascending = True
 
+    # 判斷是否按下按鈕
     if request.method == "POST":
-        # 判斷是否按下按鈕
-        if "sort" in request.form:
 
+        if "sort" in request.form:
             sort = True
             # 取得select的option
             ascending = True if request.form.get("sort") == "true" else False
             # print(ascending)
 
+    # 帶入變數傳到函式
     columns, values = crawl_pm25(sort, ascending)
     datas = {
         "columns": columns,

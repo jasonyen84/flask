@@ -41,18 +41,25 @@
     <a href="/">回首頁</a>
     <a href="">重新讀取</a>
 
-    <!-- 前後端溝通 -->
-    <!-- action 不特別寫就是在本頁 -->
-    <form action="" method="POST">
+    <!-- 定時刷新頁面(前端JS) -->
+    <div class="panel1">
+        <!-- id 給前端判讀 -->
+        <input type="checkbox" name="" id="check-reload">開啟
+        <input type="number" id="reload-sec">秒數
 
-        <!-- name 給後端判讀 -->
-        <select name="sort" id="sort">
-            <option value="true">升</option>
-            <option value="false">降</option>
-        </select>
-        <button type="submit">排序</button>
+        <!-- 前後端溝通 -->
+        <!-- action 不特別寫就是在本頁 -->
+        <form action="" method="POST">
+            <!-- name 給後端判讀 -->
+            <select name="sort" id="sort">
+                <option value="true">升</option>
+                <option value="false">降</option>
+            </select>
+            <button type="submit">排序</button>
+        </form>
 
-    </form>
+    </div>
+
     <table border="1">
         <thead>
             <tr>
@@ -76,6 +83,47 @@
         <!-- {{datas["values"]}} -->
     </table>
 
+    <script>
+        const checkReload = document.querySelector("#check-reload");
+        const reloadSecond = document.querySelector("#reload-sec");
+        const deleySecond = 30;
+        reloadSecond.value = deleySecond;
+
+        console.log(checkReload, reloadSecond);
+        // console.log(checkReload.checked, reloadSecond.value);
+
+        window.onload = function () {
+            checkReload.checked = localStorage.getItem("checkReload") ? True : Fasle;
+            reloadSecond.value = localStorage.getItem("reloadSecond") ? localStorage.getItem("reloadSecond") : deleySecond;
+
+            SetUpdateInterval();
+        };
+
+        checkReload.addEventListener("change", () => {
+            console.log(checkReload.checked, reloadSecond.value);
+
+            // 保留值，避免被刷新消失
+            localStorage.setItem("checkReload", checkReload.checked);
+            localStorage.setItem("reloadSecond", reloadSecond.value);
+
+            SetUpdateInterval();
+
+        });
+
+        function SetUpdateInterval() {
+            if (checkReload.checked) {
+                console.log("start reload!");
+                let sec = Number(reloadSecond.value) * 1000;
+
+                setInterval(() => {
+                    window.location.reload();
+                }, sec);
+            }
+
+        }
+
+
+    </script>
 
 
 </body>
